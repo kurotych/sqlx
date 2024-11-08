@@ -7,10 +7,10 @@ members = [
     "sqlx-test",
     "sqlx-cli",
     #    "sqlx-bench",
-    "sqlx-mysql",
+    # "sqlx-mysql",
     "sqlx-postgres",
     "sqlx-sqlite",
-    "examples/mysql/todos",
+    # "examples/mysql/todos",
     "examples/postgres/axum-social-with-tests",
     "examples/postgres/chat",
     "examples/postgres/files",
@@ -58,10 +58,10 @@ default = ["any", "macros", "migrate", "json"]
 
 derive = ["sqlx-macros/derive"]
 macros = ["derive", "sqlx-macros/macros"]
-migrate = ["sqlx-core/migrate", "sqlx-macros?/migrate", "sqlx-mysql?/migrate", "sqlx-postgres?/migrate", "sqlx-sqlite?/migrate"]
+migrate = ["sqlx-core/migrate", "sqlx-macros?/migrate", "sqlx-postgres?/migrate", "sqlx-sqlite?/migrate"]
 
 # intended mainly for CI and docs
-all-databases = ["mysql", "sqlite", "postgres", "any"]
+all-databases = ["sqlite", "postgres", "any"]
 _unstable-all-types = [
     "bigdecimal",
     "rust_decimal",
@@ -101,23 +101,22 @@ _rt-tokio = []
 _sqlite = []
 
 # database
-any = ["sqlx-core/any", "sqlx-mysql?/any", "sqlx-postgres?/any", "sqlx-sqlite?/any"]
+any = ["sqlx-core/any", "sqlx-postgres?/any", "sqlx-sqlite?/any"]
 postgres = ["sqlx-postgres", "sqlx-macros?/postgres"]
-mysql = ["sqlx-mysql", "sqlx-macros?/mysql"]
 sqlite = ["_sqlite", "sqlx-sqlite/bundled", "sqlx-macros?/sqlite"]
 sqlite-unbundled = ["_sqlite", "sqlx-sqlite/unbundled", "sqlx-macros?/sqlite-unbundled"]
 
 # types
-json = ["sqlx-macros?/json", "sqlx-mysql?/json", "sqlx-postgres?/json", "sqlx-sqlite?/json"]
+json = ["sqlx-macros?/json", "sqlx-postgres?/json", "sqlx-sqlite?/json"]
 
-bigdecimal = ["sqlx-core/bigdecimal", "sqlx-macros?/bigdecimal", "sqlx-mysql?/bigdecimal", "sqlx-postgres?/bigdecimal"]
+bigdecimal = ["sqlx-core/bigdecimal", "sqlx-macros?/bigdecimal", "sqlx-postgres?/bigdecimal"]
 bit-vec = ["sqlx-core/bit-vec", "sqlx-macros?/bit-vec", "sqlx-postgres?/bit-vec"]
-chrono = ["sqlx-core/chrono", "sqlx-macros?/chrono", "sqlx-mysql?/chrono", "sqlx-postgres?/chrono", "sqlx-sqlite?/chrono"]
+chrono = ["sqlx-core/chrono", "sqlx-macros?/chrono", "sqlx-postgres?/chrono", "sqlx-sqlite?/chrono"]
 ipnetwork = ["sqlx-core/ipnetwork", "sqlx-macros?/ipnetwork", "sqlx-postgres?/ipnetwork"]
 mac_address = ["sqlx-core/mac_address", "sqlx-macros?/mac_address", "sqlx-postgres?/mac_address"]
-rust_decimal = ["sqlx-core/rust_decimal", "sqlx-macros?/rust_decimal", "sqlx-mysql?/rust_decimal", "sqlx-postgres?/rust_decimal"]
-time = ["sqlx-core/time", "sqlx-macros?/time", "sqlx-mysql?/time", "sqlx-postgres?/time", "sqlx-sqlite?/time"]
-uuid = ["sqlx-core/uuid", "sqlx-macros?/uuid", "sqlx-mysql?/uuid", "sqlx-postgres?/uuid", "sqlx-sqlite?/uuid"]
+rust_decimal = ["sqlx-core/rust_decimal", "sqlx-macros?/rust_decimal", "sqlx-postgres?/rust_decimal"]
+time = ["sqlx-core/time", "sqlx-macros?/time", "sqlx-postgres?/time", "sqlx-sqlite?/time"]
+uuid = ["sqlx-core/uuid", "sqlx-macros?/uuid", "sqlx-postgres?/uuid", "sqlx-sqlite?/uuid"]
 regexp = ["sqlx-sqlite?/regexp"]
 
 [workspace.dependencies]
@@ -127,7 +126,7 @@ sqlx-macros-core = { version = "=0.8.2", path = "sqlx-macros-core" }
 sqlx-macros = { version = "=0.8.2", path = "sqlx-macros" }
 
 # Driver crates
-sqlx-mysql = { version = "=0.8.2", path = "sqlx-mysql" }
+# sqlx-mysql = { version = "=0.8.2", path = "sqlx-mysql" }
 sqlx-postgres = { version = "=0.8.2", path = "sqlx-postgres" }
 sqlx-sqlite = { version = "=0.8.2", path = "sqlx-sqlite" }
 
@@ -161,7 +160,7 @@ default-features = false
 sqlx-core = { workspace = true, features = ["offline", "migrate"] }
 sqlx-macros = { workspace = true, optional = true }
 
-sqlx-mysql = { workspace = true, optional = true }
+# sqlx-mysql = { workspace = true, optional = true }
 sqlx-postgres = { workspace = true, optional = true }
 sqlx-sqlite = { workspace = true, optional = true }
 
@@ -293,54 +292,6 @@ path = "benches/sqlite/describe.rs"
 harness = false
 required-features = ["sqlite"]
 
-#
-# MySQL
-#
-
-[[test]]
-name = "mysql"
-path = "tests/mysql/mysql.rs"
-required-features = ["mysql"]
-
-[[test]]
-name = "mysql-types"
-path = "tests/mysql/types.rs"
-required-features = ["mysql"]
-
-[[test]]
-name = "mysql-describe"
-path = "tests/mysql/describe.rs"
-required-features = ["mysql"]
-
-[[test]]
-name = "mysql-derives"
-path = "tests/mysql/derives.rs"
-required-features = ["mysql", "derive"]
-
-[[test]]
-name = "mysql-macros"
-path = "tests/mysql/macros.rs"
-required-features = ["mysql", "macros"]
-
-[[test]]
-name = "mysql-error"
-path = "tests/mysql/error.rs"
-required-features = ["mysql"]
-
-[[test]]
-name = "mysql-test-attr"
-path = "tests/mysql/test-attr.rs"
-required-features = ["mysql", "macros", "migrate"]
-
-[[test]]
-name = "mysql-migrate"
-path = "tests/mysql/migrate.rs"
-required-features = ["mysql", "macros", "migrate"]
-
-[[test]]
-name = "mysql-rustsec"
-path = "tests/mysql/rustsec.rs"
-required-features = ["mysql"]
 
 #
 # PostgreSQL
